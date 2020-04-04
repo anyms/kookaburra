@@ -1,0 +1,2 @@
+include ':app', ':kookaburra'
+rootProject.name='Browser'

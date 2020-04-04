@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/root_layout"
+    android:animateLayoutChanges="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".fragments.BrowserFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            android:visibility="gone"
+            android:id="@+id/browser_urlbar"
+            layout="@layout/urlbar_browser"/>
+
+        <include
+            android:id="@+id/browser_toolbar"
+            layout="@layout/toolbar_browser"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+        android:id="@+id/webview_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="?android:attr/actionBarSize"
+        app:layout_constraintTop_toBottomOf="@+id/app_bar_layout" />
+
+    <FrameLayout
+        android:visibility="gone"
+        android:id="@+id/browser_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:background="#33000000"
+        android:layout_marginTop="?android:attr/actionBarSize"
+        app:layout_constraintTop_toBottomOf="@+id/app_bar_layout" />
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:scaleY="1.1"
+        android:progress="0"
+        app:layout_anchor="@+id/webview_holder"
+        app:layout_anchorGravity="top|center"
+        app:layout_constraintBottom_toBottomOf="@id/app_bar_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

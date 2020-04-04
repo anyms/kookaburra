@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/bookmark_open"
+        android:title="@string/open"/>
+    <item android:id="@+id/bookmark_open_new_tab"
+        android:title="@string/open_in_new_tab"/>
+    <item android:id="@+id/bookmark_remove"
+        android:title="@string/remove"/>
+    <item android:id="@+id/bookmark_details"
+        android:title="@string/details"/>
+</menu>
