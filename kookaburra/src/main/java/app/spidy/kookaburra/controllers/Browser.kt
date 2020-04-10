@@ -1,10 +1,13 @@
 package app.spidy.kookaburra.controllers
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.net.http.SslError
 import android.os.Bundle
+import android.os.Message
 import android.os.Parcel
 import android.view.View
-import android.webkit.WebView
+import android.webkit.*
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -36,8 +39,25 @@ class Browser(
     private val webviewHolder: FrameLayout,
     private val titleBar: TextView,
     private val urlField: EditText,
-    val progressBar: ProgressBar
+    val progressBar: ProgressBar,
+    val browserListener: Listener?
 ) {
+
+
+    interface Listener {
+        fun onLoadResource(view: WebView, url: String) {}
+        fun onPageStarted(view: WebView, url: String, favIcon: Bitmap?) {}
+        fun onPageFinished(view: WebView, url: String) {}
+        fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest) {}
+        fun onReceivedError(view: WebView, request: WebResourceRequest, error: WebResourceError?) {}
+        fun onReceivedSslError(view: WebView, handler: SslErrorHandler, error: SslError) {}
+        fun shouldInterceptRequest(view: WebView, url: String, request: WebResourceRequest?) {}
+        fun onFormResubmission(view: WebView, dontResend: Message, resend: Message) {}
+        fun onPageCommitVisible(view: WebView, url: String) {}
+        fun onReceivedClientCertRequest(view: WebView, request: ClientCertRequest) {}
+        fun onNewUrl(url: String) {}
+    }
+
 
     companion object {
         const val KEY_LAST_TAB = "app.spidy.browser.LAST_TAB"

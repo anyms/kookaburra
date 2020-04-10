@@ -1,5 +1,6 @@
 package app.spidy.kookaburra.controllers
 
+import android.annotation.TargetApi
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
@@ -7,6 +8,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.http.SslError
 import android.os.Build
+import android.os.Message
 import android.util.Log
 import android.webkit.*
 import androidx.annotation.RequiresApi
@@ -44,9 +46,14 @@ class WebClient(
                         browser.protocolImage?.setImageDrawable(ContextCompat.getDrawable(view.context, R.drawable.protocol_info))
                     }
                 }
+
+                browser.browserListener?.onNewUrl(prettyUrl)
             }
         }
 
+        if (view != null && url != null) {
+            browser.browserListener?.onLoadResource(view, url)
+        }
         super.onLoadResource(view, url)
     }
 
@@ -66,6 +73,10 @@ class WebClient(
         if (browser.currentTab != null) {
             browser.updateTab(browser.currentTab!!)
         }
+
+        if (view != null && url != null) {
+            browser.browserListener?.onPageStarted(view, url, favicon)
+        }
     }
 
     override fun onPageFinished(view: WebView?, url: String?) {
@@ -79,9 +90,12 @@ class WebClient(
         }
         browser.isLoading = false
         browser.hideProgressBar()
+
+        if (view != null && url != null) {
+            browser.browserListener?.onPageFinished(view, url)
+        }
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
         request?.also {
             if (it.url.toString().startsWith("intent://")) {
@@ -90,7 +104,7 @@ class WebClient(
                     val intent = Intent.parseUri(it.url.toString(), Intent.URI_INTENT_SCHEME)
                     if (intent != null) {
                         view.stopLoading()
-                        val packageManager: PackageManager = context.getPackageManager()
+                        val packageManager: PackageManager = context.packageManager
                         val info = packageManager.resolveActivity(
                             intent,
                             PackageManager.MATCH_DEFAULT_ONLY
@@ -110,8 +124,12 @@ class WebClient(
                 }
             }
         }
+        if (view != null && request != null) {
+            browser.browserListener?.shouldOverrideUrlLoading(view, request)
+        }
         return super.shouldOverrideUrlLoading(view, request)
     }
+
 
     override fun onReceivedError(
         view: WebView?,
@@ -121,10 +139,17 @@ class WebClient(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             view?.context?.toast("An error occurred : ${error?.errorCode}")
         }
+        if (view != null && request != null) {
+            browser.browserListener?.onReceivedError(view, request, error)
+        }
         super.onReceivedError(view, request, error)
     }
 
     override fun onReceivedSslError(view: WebView?, handler: SslErrorHandler?, error: SslError?) {
+        if (view != null && handler != null && error != null) {
+            browser.browserListener?.onReceivedSslError(view, handler, error)
+        }
+
         if (view == null) {
             super.onReceivedSslError(view, handler, error)
             return
@@ -146,5 +171,35 @@ class WebClient(
             }
         }
         alertDialog.show()
+    }
+
+
+    override fun shouldInterceptRequest(view: WebView?, request: WebResourceRequest?): WebResourceResponse? {
+        val url = request?.url?.toString()
+        if (view != null && url != null) {
+            browser.browserListener?.shouldInterceptRequest(view, url, request)
+        }
+        return super.shouldInterceptRequest(view, request)
+    }
+
+    override fun onFormResubmission(view: WebView?, dontResend: Message?, resend: Message?) {
+        if (view != null && dontResend != null && resend != null) {
+            browser.browserListener?.onFormResubmission(view, dontResend, resend)
+        }
+        super.onFormResubmission(view, dontResend, resend)
+    }
+
+    override fun onPageCommitVisible(view: WebView?, url: String?) {
+        if (view != null && url != null) {
+            browser.browserListener?.onPageCommitVisible(view, url)
+        }
+        super.onPageCommitVisible(view, url)
+    }
+
+    override fun onReceivedClientCertRequest(view: WebView?, request: ClientCertRequest?) {
+        if (view != null && request != null) {
+            browser.browserListener?.onReceivedClientCertRequest(view, request)
+        }
+        super.onReceivedClientCertRequest(view, request)
     }
 }

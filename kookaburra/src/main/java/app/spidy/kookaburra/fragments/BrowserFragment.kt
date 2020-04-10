@@ -78,6 +78,8 @@ class BrowserFragment : Fragment() {
 
     private val viewGroup: ViewGroup? = null
 
+    var browserListener: Browser.Listener? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -110,7 +112,8 @@ class BrowserFragment : Fragment() {
             webviewHolder,
             titleBar,
             urlField,
-            progressBar
+            progressBar,
+            browserListener
         )
         tabsDialog = createTabDialog()
         menuDialog = createOptionMenu(context!!)
