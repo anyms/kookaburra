@@ -46,8 +46,7 @@ class WebClient(
                         browser.protocolImage?.setImageDrawable(ContextCompat.getDrawable(view.context, R.drawable.protocol_info))
                     }
                 }
-
-                browser.browserListener?.onNewUrl(prettyUrl)
+                browser.browserListener?.onNewUrl(view, prettyUrl)
             }
         }
 

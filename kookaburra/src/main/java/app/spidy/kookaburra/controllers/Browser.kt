@@ -55,7 +55,7 @@ class Browser(
         fun onFormResubmission(view: WebView, dontResend: Message, resend: Message) {}
         fun onPageCommitVisible(view: WebView, url: String) {}
         fun onReceivedClientCertRequest(view: WebView, request: ClientCertRequest) {}
-        fun onNewUrl(url: String) {}
+        fun onNewUrl(view: WebView, url: String) {}
     }
 
 
