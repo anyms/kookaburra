@@ -70,7 +70,7 @@ class WebviewFragment : Fragment() {
         webview.webChromeClient =
             ChromeClient(context!!, browser)
         webview.webViewClient =
-            WebClient(context!!, browser)
+            WebClient(context!!, browser, activity)
 
         browser.loadState(webviewId!!, webview) {
             webview.loadUrl(urlToLoad)

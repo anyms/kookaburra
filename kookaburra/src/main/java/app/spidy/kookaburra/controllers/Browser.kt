@@ -11,6 +11,7 @@ import android.webkit.*
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.FragmentActivity
 import androidx.room.Room
 import app.spidy.kookaburra.R
 import app.spidy.kookaburra.adapters.TabAdapter
@@ -51,7 +52,7 @@ class Browser(
         fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest) {}
         fun onReceivedError(view: WebView, request: WebResourceRequest, error: WebResourceError?) {}
         fun onReceivedSslError(view: WebView, handler: SslErrorHandler, error: SslError) {}
-        fun shouldInterceptRequest(view: WebView, url: String, request: WebResourceRequest?) {}
+        fun shouldInterceptRequest(view: WebView, activity: FragmentActivity?, url: String, request: WebResourceRequest?) {}
         fun onFormResubmission(view: WebView, dontResend: Message, resend: Message) {}
         fun onPageCommitVisible(view: WebView, url: String) {}
         fun onReceivedClientCertRequest(view: WebView, request: ClientCertRequest) {}

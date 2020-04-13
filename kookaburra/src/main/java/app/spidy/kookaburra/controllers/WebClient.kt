@@ -13,6 +13,7 @@ import android.util.Log
 import android.webkit.*
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 import app.spidy.kookaburra.R
 import app.spidy.kookaburra.data.History
 import app.spidy.kotlinutils.toast
@@ -24,7 +25,8 @@ import kotlin.concurrent.thread
 
 class WebClient(
     private val context: Context,
-    private val browser: Browser
+    private val browser: Browser,
+    private val activity: FragmentActivity?
 ) : WebViewClient() {
     private var lastUrl: String? = null
 
@@ -176,7 +178,7 @@ class WebClient(
     override fun shouldInterceptRequest(view: WebView?, request: WebResourceRequest?): WebResourceResponse? {
         val url = request?.url?.toString()
         if (view != null && url != null) {
-            browser.browserListener?.shouldInterceptRequest(view, url, request)
+            browser.browserListener?.shouldInterceptRequest(view, activity, url, request)
         }
         return super.shouldInterceptRequest(view, request)
     }
