@@ -57,6 +57,8 @@ class Browser(
         fun onPageCommitVisible(view: WebView, url: String) {}
         fun onReceivedClientCertRequest(view: WebView, request: ClientCertRequest) {}
         fun onNewUrl(view: WebView, url: String) {}
+        fun onNewDownload(view: WebView, url: String, userAgent: String,
+                          contentDisposition: String, mimetype: String, contentLength: Long) {}
     }
 
 

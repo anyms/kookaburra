@@ -81,11 +81,13 @@ class WebviewFragment : Fragment() {
         /* Webview downloader */
         webview.setDownloadListener { url, userAgent, contentDisposition, mimetype, contentLength ->
             val fileName = URLUtil.guessFileName(url, contentDisposition, mimetype)
-            val downloadManager = context?.getSystemService(Context.DOWNLOAD_SERVICE) as? DownloadManager
-            val request = DownloadManager.Request(Uri.parse(url))
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-            downloadManager?.enqueue(request)
+//            val downloadManager = context?.getSystemService(Context.DOWNLOAD_SERVICE) as? DownloadManager
+//            val request = DownloadManager.Request(Uri.parse(url))
+//            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName)
+//            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+//            downloadManager?.enqueue(request)
+
+            browser.browserListener?.onNewDownload(webview, url, userAgent, contentDisposition, mimetype, contentLength)
         }
         
 
