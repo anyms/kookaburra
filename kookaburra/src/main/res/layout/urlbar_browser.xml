@@ -20,11 +20,11 @@
         app:srcCompat="@drawable/ic_microphone" />
 
     <EditText
+        android:textColor="@color/colorBrowserText"
         android:autofillHints="url"
         android:id="@+id/url_field"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/colorBrowserWhite"
         android:ems="10"
         android:hint="@string/search_or_type_web_address"
         android:imeOptions="actionSearch"
