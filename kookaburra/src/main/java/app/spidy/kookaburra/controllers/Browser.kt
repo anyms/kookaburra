@@ -59,8 +59,8 @@ class Browser(
         fun onNewUrl(view: WebView, url: String) {}
         fun onNewDownload(view: WebView, url: String, userAgent: String,
                           contentDisposition: String, mimetype: String, contentLength: Long) {}
-        fun onSwitchTab(fromView: WebView, toView: WebView, fromTabId: String, toTabId: String) {}
-        fun onNewTab(view: WebView, tabId: String) {}
+        fun onSwitchTab(fromTabId: String, toTabId: String) {}
+        fun onNewTab(tabId: String) {}
         fun onCloseTab(tabId: String) {}
     }
 
@@ -199,9 +199,7 @@ class Browser(
                 tinyDB.putString(KEY_LAST_TAB, tab.tabId)
 
                 titleBar.text = tab.title
-                if (tab.fragment?.webview != null) {
-                    browserListener?.onNewTab(tab.fragment?.webview!!, tab.tabId)
-                }
+                browserListener?.onNewTab(tab.tabId)
             }
         }
     }
@@ -227,7 +225,7 @@ class Browser(
         val fromWebView = fromTab.fragment?.webview
         val toWebView = toTab.fragment?.webview
         if (fromWebView != null && toWebView != null) {
-            browserListener?.onSwitchTab(fromWebView, toWebView, fromTab.tabId, toTab.tabId)
+            browserListener?.onSwitchTab(fromTab.tabId, toTab.tabId)
         }
     }
 
