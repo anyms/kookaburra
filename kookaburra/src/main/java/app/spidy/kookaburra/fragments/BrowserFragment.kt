@@ -628,7 +628,7 @@ class BrowserFragment : Fragment() {
             var attachmentUri: Uri? = null
             if (ContentResolver.SCHEME_FILE == uri.scheme && uri.path != null && activity != null) {
                 val file = File(uri.path!!)
-                attachmentUri = FileProvider.getUriForFile(activity!!, "com.gelbintergalactic.fileprovider", file)
+                attachmentUri = FileProvider.getUriForFile(requireActivity(), "com.gelbintergalactic.fileprovider", file)
             }
 
             val openAttachmentIntent = Intent(Intent.ACTION_VIEW);
