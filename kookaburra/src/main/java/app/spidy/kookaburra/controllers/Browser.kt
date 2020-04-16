@@ -62,6 +62,7 @@ class Browser(
         fun onSwitchTab(fromTabId: String, toTabId: String) {}
         fun onNewTab(tabId: String) {}
         fun onCloseTab(tabId: String) {}
+        fun onRestoreTab(tabId: String, isActive: Boolean) {}
     }
 
 
@@ -277,6 +278,8 @@ class Browser(
                     ?.commit()
             needle = findTabIndex(tab)
         }
+
+        browserListener?.onRestoreTab(tab.tabId, canAdd)
     }
 
     fun restoreTabs() {
