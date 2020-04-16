@@ -223,11 +223,7 @@ class Browser(
         titleBar.text = toTab.title
 
         tinyDB.putString(KEY_LAST_TAB, toTab.tabId)
-        val fromWebView = fromTab.fragment?.webview
-        val toWebView = toTab.fragment?.webview
-        if (fromWebView != null && toWebView != null) {
-            browserListener?.onSwitchTab(fromTab.tabId, toTab.tabId)
-        }
+        browserListener?.onSwitchTab(fromTab.tabId, toTab.tabId)
     }
 
     private fun findTabIndex(tab: Tab): Int {
