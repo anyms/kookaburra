@@ -36,7 +36,7 @@
         app:layout_constraintBottom_toBottomOf="parent" android:adjustViewBounds="true" android:scaleType="fitXY"
         />
     <TextView
-        android:textColor="@color/colorText"
+        android:textColor="@color/colorBrowserText"
         android:textSize="18sp"
         android:maxLines="1"
         android:ellipsize="end"
@@ -50,7 +50,7 @@
         app:layout_constraintStart_toEndOf="@+id/fav_icon_image" android:layout_marginStart="16dp" />
 
     <TextView
-        android:textColor="@color/colorDarkGray"
+        android:textColor="@color/colorBrowserDarkGray"
         android:textSize="16sp"
         android:maxLines="1"
         android:ellipsize="end"

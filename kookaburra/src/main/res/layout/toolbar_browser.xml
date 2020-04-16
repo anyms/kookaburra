@@ -28,7 +28,7 @@
             android:text="@string/three_dots"
             android:gravity="center"
             android:id="@+id/title_bar"
-            android:textColor="@color/colorText"
+            android:textColor="@color/colorBrowserText"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"

@@ -29,7 +29,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val tinyDB = TinyDB(context!!)
+        val tinyDB = TinyDB(requireContext())
 
         val searchEngine = findPreference<ListPreference>("search_engine")
         val searchEngineValues = resources.getStringArray(R.array.search_engine_values)
@@ -73,7 +73,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         val feedback = findPreference<Preference>("feedback")
         feedback?.setOnPreferenceClickListener {
-            val uri = Uri.parse("market://details?id=${context!!.packageName}");
+            val uri = Uri.parse("market://details?id=${requireContext().packageName}");
             val goToMarket = Intent(Intent.ACTION_VIEW, uri)
             goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
             try {
@@ -82,7 +82,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse("http://play.google.com/store/apps/details?id=${context!!.packageName}"))
+                        Uri.parse("http://play.google.com/store/apps/details?id=${requireContext().packageName}"))
                 )
             }
             return@setOnPreferenceClickListener true

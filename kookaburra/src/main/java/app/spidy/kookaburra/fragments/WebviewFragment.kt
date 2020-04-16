@@ -68,9 +68,9 @@ class WebviewFragment : Fragment() {
             displayZoomControls = false
         }
         webview.webChromeClient =
-            ChromeClient(context!!, browser)
+            ChromeClient(requireContext(), browser)
         webview.webViewClient =
-            WebClient(context!!, browser, activity)
+            WebClient(requireContext(), browser, activity)
 
         browser.loadState(webviewId!!, webview) {
             webview.loadUrl(urlToLoad)
@@ -115,7 +115,7 @@ class WebviewFragment : Fragment() {
                 }
                 menu.add("Copy link address")
                 callbacks.add {
-                    val clipboardManager = context!!
+                    val clipboardManager = requireContext()
                         .getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
                     val clipData = android.content.ClipData
                         .newPlainText("Link address", itemInfo?.get("url").toString())
@@ -127,7 +127,7 @@ class WebviewFragment : Fragment() {
                 if (hr.type != WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE) {
                     menu.add("Copy link text")
                     callbacks.add {
-                        val clipboardManager = context!!
+                        val clipboardManager = requireContext()
                             .getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
                         val clipData = android.content.ClipData
                             .newPlainText("Link text", itemInfo?.get("title").toString())
@@ -178,7 +178,7 @@ class WebviewFragment : Fragment() {
                 menu.add("Copy image address")
                 callbacks.add {
                     if (hr.extra != null) {
-                        val clipboardManager = context!!
+                        val clipboardManager = requireContext()
                             .getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
                         val clipData = android.content.ClipData
                             .newPlainText("Image link", hr.extra?.toString())
@@ -195,7 +195,7 @@ class WebviewFragment : Fragment() {
                 if (hr.extra != null) {
                     Snackbar.make(webview, "Fetching image...", Snackbar.LENGTH_SHORT).show()
                     thread {
-                        val fileDir = context!!.getExternalFilesDir("__images__")
+                        val fileDir = requireContext().getExternalFilesDir("__images__")
 
                         assert(fileDir != null)
                         if (!fileDir!!.exists()) {
@@ -219,7 +219,7 @@ class WebviewFragment : Fragment() {
                         fOut.close()
 
                         context?.onUiThread {
-                            val imageUri = FileProvider.getUriForFile(context!!, context!!.applicationContext.packageName + ".provider", file)
+                            val imageUri = FileProvider.getUriForFile(requireContext(), requireContext().applicationContext.packageName + ".provider", file)
                             val sharingIntent = Intent(Intent.ACTION_SEND)
                             sharingIntent.type = "image/*"
                             sharingIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -233,7 +233,7 @@ class WebviewFragment : Fragment() {
 
 
             if (menu.isNotEmpty()) {
-                val builder = AlertDialog.Builder(context!!)
+                val builder = AlertDialog.Builder(requireContext())
                 if (title != null) {
                     builder.setTitle(title)
                 } else {

@@ -79,6 +79,7 @@ class BrowserFragment : Fragment() {
     private val viewGroup: ViewGroup? = null
 
     var browserListener: Browser.Listener? = null
+    private var isOverlayShowing = false
 
 
     override fun onCreateView(
@@ -105,7 +106,7 @@ class BrowserFragment : Fragment() {
         protocolImage = view.findViewById(R.id.protocol_image)
 
         browser = Browser(
-            context!!,
+            requireContext(),
             (activity as AppCompatActivity),
             toolbar,
             appBarLayout,
@@ -116,8 +117,8 @@ class BrowserFragment : Fragment() {
             browserListener
         )
         tabsDialog = createTabDialog()
-        menuDialog = createOptionMenu(context!!)
-        protocolDialog = createProtocolDialog(context!!)
+        menuDialog = createOptionMenu(requireContext())
+        protocolDialog = createProtocolDialog(requireContext())
         bookmarkDialog = createBookmarkDialog()
         historyDialog = createHistoryDialog()
         settingsDialog = createSettingsDialog()
@@ -133,11 +134,11 @@ class BrowserFragment : Fragment() {
                 ignore {
                     context?.resources?.getIdentifier("tab_count_${browser.tabs.size}",
                         "drawable", context?.packageName)?.also {
-                        tabsDialogTabCountIcon.setImageDrawable(ContextCompat.getDrawable(context!!, it))
+                        tabsDialogTabCountIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), it))
                     }
                 }
             } else {
-                tabsDialogTabCountIcon.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.tab_count_9_plus))
+                tabsDialogTabCountIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.tab_count_9_plus))
             }
         }
 
@@ -160,6 +161,8 @@ class BrowserFragment : Fragment() {
             // Show keyboard
             val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
             imm?.showSoftInput(urlField, InputMethodManager.SHOW_IMPLICIT)
+
+            isOverlayShowing = true
         }
 
         browserOverlay.setOnClickListener {
@@ -195,6 +198,7 @@ class BrowserFragment : Fragment() {
         // Hide keyboard
         val imm = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as? InputMethodManager
         imm?.hideSoftInputFromWindow(view?.windowToken, 0)
+        isOverlayShowing = false
     }
 
     private fun speak() {
@@ -211,7 +215,7 @@ class BrowserFragment : Fragment() {
     }
 
     private fun createSettingsDialog(): Dialog {
-        val dialog = Dialog(context!!, R.style.FullScreenDialogTheme)
+        val dialog = Dialog(requireContext(), R.style.FullScreenDialogTheme)
         val view = layoutInflater.inflate(R.layout.layout_settings_dialog, viewGroup)
         val closeImage: ImageView = view.findViewById(R.id.settings_close_image)
 
@@ -257,13 +261,13 @@ class BrowserFragment : Fragment() {
     }
 
     private fun createBookmarkDialog(): Dialog {
-        val dialog = Dialog(context!!, R.style.FullScreenDialogTheme)
+        val dialog = Dialog(requireContext(), R.style.FullScreenDialogTheme)
         val view = layoutInflater.inflate(R.layout.layout_bookmarks_dialog, viewGroup)
         val bookmarkRecyclerView: RecyclerView = view.findViewById(R.id.bookmarks_recyclerview)
         val bookmarkCloseImage: ImageView = view.findViewById(R.id.bookmarks_close_image)
         val bookmarkMenuImage: ImageView = view.findViewById(R.id.bookmarks_menu_image)
         val bookmarks = ArrayList<Bookmark>()
-        val bookmarkAdapter = BookmarkAdapter(context!!, bookmarks, dialog, browser)
+        val bookmarkAdapter = BookmarkAdapter(requireContext(), bookmarks, dialog, browser)
         bookmarkRecyclerView.adapter = bookmarkAdapter
         bookmarkRecyclerView.layoutManager = LinearLayoutManager(context)
 
@@ -324,13 +328,13 @@ class BrowserFragment : Fragment() {
 
 
     private fun createHistoryDialog(): Dialog {
-        val dialog = Dialog(context!!, R.style.FullScreenDialogTheme)
+        val dialog = Dialog(requireContext(), R.style.FullScreenDialogTheme)
         val view = layoutInflater.inflate(R.layout.layout_history_dialog, viewGroup)
         val historyRecyclerView: RecyclerView = view.findViewById(R.id.history_recyclerview)
         val historyCloseImage: ImageView = view.findViewById(R.id.history_close_image)
         val historyMenuImage: ImageView = view.findViewById(R.id.history_menu_image)
         val histories = ArrayList<History>()
-        val historyAdapter = HistoryAdapter(context!!, histories, dialog, browser)
+        val historyAdapter = HistoryAdapter(requireContext(), histories, dialog, browser)
         historyRecyclerView.adapter = historyAdapter
         historyRecyclerView.layoutManager = LinearLayoutManager(context)
 
@@ -390,12 +394,12 @@ class BrowserFragment : Fragment() {
 
 
     private fun createTabDialog(): Dialog {
-        val dialog = Dialog(context!!, R.style.FullScreenDialogTheme)
+        val dialog = Dialog(requireContext(), R.style.FullScreenDialogTheme)
         val view = layoutInflater.inflate(R.layout.layout_tabs_dialog, viewGroup)
         val tabsRecyclerView: RecyclerView = view.findViewById(R.id.bookmarks_recyclerview)
         val newTabIcon: ImageView = view.findViewById(R.id.new_tab_icon)
         tabsDialogTabCountIcon = view.findViewById(R.id.tab_count_icon)
-        tabAdapter = TabAdapter(context!!, browser.tabs, dialog, browser)
+        tabAdapter = TabAdapter(requireContext(), browser.tabs, dialog, browser)
         tabsRecyclerView.adapter = tabAdapter
         tabsRecyclerView.layoutManager = LinearLayoutManager(context)
 
@@ -478,19 +482,19 @@ class BrowserFragment : Fragment() {
                     protocolStatusView.text = getString(R.string.unsecure_connection)
                     protocolMessageView.text = getString(R.string.protocol_message_unsecure)
                     protocolDomainView.text = URI(browser.url).host
-                    protocolStatusView.setTextColor(ContextCompat.getColor(context, R.color.colorRed))
+                    protocolStatusView.setTextColor(ContextCompat.getColor(context, R.color.colorBrowserRed))
                 }
                 browser.url.startsWith("https://") -> {
                     protocolStatusView.text = getString(R.string.secure_connection)
                     protocolMessageView.text = getString(R.string.protocol_message_secure)
                     protocolDomainView.text = URI(browser.url).host
-                    protocolStatusView.setTextColor(ContextCompat.getColor(context, R.color.colorGreen))
+                    protocolStatusView.setTextColor(ContextCompat.getColor(context, R.color.colorBrowserGreen))
                 }
                 else -> {
                     protocolStatusView.text = getString(R.string.unsecure_connection)
                     protocolMessageView.text = getString(R.string.protocol_message_unsecure)
                     protocolDomainView.text = URI(browser.url).host
-                    protocolStatusView.setTextColor(ContextCompat.getColor(context, R.color.colorRed))
+                    protocolStatusView.setTextColor(ContextCompat.getColor(context, R.color.colorBrowserRed))
                 }
             }
         }
@@ -662,6 +666,9 @@ class BrowserFragment : Fragment() {
         browser.currentTab?.fragment?.webview?.also {
             if (it.canGoBack()) {
                 it.goBack()
+                return true
+            } else if (isOverlayShowing) {
+                hideUrlField()
                 return true
             }
         }

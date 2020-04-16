@@ -7,6 +7,7 @@ import android.util.Log
 import android.webkit.CookieManager
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
+import androidx.fragment.app.FragmentActivity
 import app.spidy.hiper.Hiper
 import app.spidy.hiper.data.HiperResponse
 import app.spidy.kookaburra.controllers.Browser
@@ -17,11 +18,11 @@ class BrowserListener : Browser.Listener {
     private val cookieManager = CookieManager.getInstance()
     private var cookies = HashMap<String, String>()
 
-    override fun shouldInterceptRequest(view: WebView, url: String, request: WebResourceRequest?) {
+    override fun shouldInterceptRequest(view: WebView, activity: FragmentActivity?, url: String, request: WebResourceRequest?) {
         init(url, request?.requestHeaders, view)
     }
 
-    override fun onNewUrl(url: String) {
+    override fun onNewUrl(view: WebView, url: String) {
         cookies = HashMap()
         val cooks = cookieManager.getCookie(url)?.split(";")
         if (cooks != null) {
