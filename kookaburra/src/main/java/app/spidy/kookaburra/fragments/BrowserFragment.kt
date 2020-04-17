@@ -34,6 +34,7 @@ import app.spidy.kookaburra.controllers.PermissionHandler
 import app.spidy.kookaburra.controllers.getCurrentDateTime
 import app.spidy.kookaburra.controllers.toString
 import app.spidy.kookaburra.data.History
+import app.spidy.kookaburra.data.Tab
 import app.spidy.kotlinutils.ignore
 import app.spidy.kotlinutils.onUiThread
 import app.spidy.kotlinutils.toast
@@ -80,6 +81,10 @@ class BrowserFragment : Fragment() {
 
     var browserListener: Browser.Listener? = null
     private var isOverlayShowing = false
+
+
+    val currentTab: Tab?
+        get() = browser.currentTab
 
 
     override fun onCreateView(
