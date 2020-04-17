@@ -321,7 +321,7 @@ class Browser(
     }
 
     fun putHistory(history: History) {
-        database.browserDao().putHistory(history)
+        // database.browserDao().putHistory(history)
     }
 
     fun clearAllHistory() {

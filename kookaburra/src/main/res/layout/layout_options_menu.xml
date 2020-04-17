@@ -74,6 +74,7 @@
                 android:id="@+id/menuBookmarks" android:focusable="true"/>
 
             <TextView
+                android:visibility="gone"
                 android:clickable="true"
                 android:textColor="@color/colorBrowserText"
                 android:paddingTop="14dp"
