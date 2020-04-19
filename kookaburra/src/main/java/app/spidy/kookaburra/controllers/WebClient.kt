@@ -19,6 +19,7 @@ import app.spidy.kookaburra.data.History
 import app.spidy.kotlinutils.toast
 import java.net.URI
 import java.net.URISyntaxException
+import java.net.URLEncoder
 import java.util.*
 import kotlin.concurrent.thread
 
@@ -38,7 +39,7 @@ class WebClient(
                 browser.url = prettyUrl
                 browser.tabAdapter.notifyDataSetChanged()
                 when {
-                    browser.sslErroredDomains.contains(URI(url!!).host) -> {
+                    browser.sslErroredDomains.contains(URI(URLEncoder.encode(url, "UTF-8")).host) -> {
                         browser.protocolImage?.setImageDrawable(ContextCompat.getDrawable(view.context, R.drawable.protocol_error))
                     }
                     view.url.startsWith("https://") -> {

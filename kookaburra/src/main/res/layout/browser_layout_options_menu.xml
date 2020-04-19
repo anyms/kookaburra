@@ -24,8 +24,11 @@
                     android:paddingStart="14dp"
                     android:paddingEnd="14dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp" card_view:srcCompat="@drawable/page_info_icon"
-                    android:id="@+id/menuPageInfoImage" android:focusable="true" android:adjustViewBounds="true"
+                    android:layout_height="50dp"
+                    card_view:srcCompat="@drawable/page_info_icon"
+                    android:id="@+id/menuPageInfoImage"
+                    android:focusable="true"
+                    android:adjustViewBounds="true"
                     android:scaleType="fitCenter"/>
                 <ImageView
                     android:clickable="true"
