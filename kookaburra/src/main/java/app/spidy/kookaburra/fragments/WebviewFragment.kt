@@ -13,7 +13,6 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.util.Base64
-import android.util.Log
 import android.view.*
 import android.webkit.URLUtil
 import android.webkit.WebSettings
@@ -50,7 +49,7 @@ class WebviewFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_webview, container, false)
+        val view = inflater.inflate(R.layout.browser_fragment_webview, container, false)
         webview = view.findViewById(R.id.webview)
 
         webviewFragmentListener?.onLoad(webview)

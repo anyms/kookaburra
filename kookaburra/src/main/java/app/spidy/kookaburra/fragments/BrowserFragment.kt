@@ -91,7 +91,7 @@ class BrowserFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_browser, container, false)
+        val view = inflater.inflate(R.layout.browser_fragment_browser, container, false)
 
         PermissionHandler.requestStorage(view.context, "To download files, the browser require storage permission. \n" +
                 "\n" +
@@ -221,7 +221,7 @@ class BrowserFragment : Fragment() {
 
     private fun createSettingsDialog(): Dialog {
         val dialog = Dialog(requireContext(), R.style.FullScreenDialogTheme)
-        val view = layoutInflater.inflate(R.layout.layout_settings_dialog, viewGroup)
+        val view = layoutInflater.inflate(R.layout.browser_layout_settings_dialog, viewGroup)
         val closeImage: ImageView = view.findViewById(R.id.settings_close_image)
 
         closeImage.setOnClickListener {
@@ -247,7 +247,7 @@ class BrowserFragment : Fragment() {
 
     private fun createProtocolDialog(context: Context): AlertDialog {
         val builder = AlertDialog.Builder(context, R.style.BrowserTheme_DialogTheme)
-        val protocolDialogView = LayoutInflater.from(context).inflate(R.layout.layout_protocol_message, viewGroup, false)
+        val protocolDialogView = LayoutInflater.from(context).inflate(R.layout.browser_layout_protocol_message, viewGroup, false)
         builder.setView(protocolDialogView)
         val dialog = builder.create()
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -267,7 +267,7 @@ class BrowserFragment : Fragment() {
 
     private fun createBookmarkDialog(): Dialog {
         val dialog = Dialog(requireContext(), R.style.FullScreenDialogTheme)
-        val view = layoutInflater.inflate(R.layout.layout_bookmarks_dialog, viewGroup)
+        val view = layoutInflater.inflate(R.layout.browser_layout_bookmarks_dialog, viewGroup)
         val bookmarkRecyclerView: RecyclerView = view.findViewById(R.id.bookmarks_recyclerview)
         val bookmarkCloseImage: ImageView = view.findViewById(R.id.bookmarks_close_image)
         val bookmarkMenuImage: ImageView = view.findViewById(R.id.bookmarks_menu_image)
@@ -334,7 +334,7 @@ class BrowserFragment : Fragment() {
 
     private fun createHistoryDialog(): Dialog {
         val dialog = Dialog(requireContext(), R.style.FullScreenDialogTheme)
-        val view = layoutInflater.inflate(R.layout.layout_history_dialog, viewGroup)
+        val view = layoutInflater.inflate(R.layout.browser_layout_history_dialog, viewGroup)
         val historyRecyclerView: RecyclerView = view.findViewById(R.id.history_recyclerview)
         val historyCloseImage: ImageView = view.findViewById(R.id.history_close_image)
         val historyMenuImage: ImageView = view.findViewById(R.id.history_menu_image)
@@ -400,7 +400,7 @@ class BrowserFragment : Fragment() {
 
     private fun createTabDialog(): Dialog {
         val dialog = Dialog(requireContext(), R.style.FullScreenDialogTheme)
-        val view = layoutInflater.inflate(R.layout.layout_tabs_dialog, viewGroup)
+        val view = layoutInflater.inflate(R.layout.browser_layout_tabs_dialog, viewGroup)
         val tabsRecyclerView: RecyclerView = view.findViewById(R.id.bookmarks_recyclerview)
         val newTabIcon: ImageView = view.findViewById(R.id.new_tab_icon)
         tabsDialogTabCountIcon = view.findViewById(R.id.tab_count_icon)
@@ -432,7 +432,7 @@ class BrowserFragment : Fragment() {
     private fun createOptionMenu(context: Context): AlertDialog {
         val builder = AlertDialog.Builder(context, R.style.BrowserTheme_DialogTheme)
         val root: ViewGroup? = null
-        val menuDialogView = LayoutInflater.from(context).inflate(R.layout.layout_options_menu, root, false)
+        val menuDialogView = LayoutInflater.from(context).inflate(R.layout.browser_layout_options_menu, root, false)
         builder.setView(menuDialogView)
         val dialog = builder.create()
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)

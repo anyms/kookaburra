@@ -17,11 +17,11 @@
         <include
             android:visibility="gone"
             android:id="@+id/browser_urlbar"
-            layout="@layout/urlbar_browser"/>
+            layout="@layout/browser_urlbar_browser"/>
 
         <include
             android:id="@+id/browser_toolbar"
-            layout="@layout/toolbar_browser"/>
+            layout="@layout/browser_toolbar_browser"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

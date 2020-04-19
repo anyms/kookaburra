@@ -22,7 +22,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/history_close_image"
+                android:id="@+id/settings_close_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="16dp"
@@ -33,47 +33,34 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_arrow_back"
-                android:contentDescription="@string/history_dialog_close" />
+                android:contentDescription="@string/settings_close_image" />
 
             <TextView
-                android:id="@+id/history_title_view"
+                android:id="@+id/settings_title_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/history"
+                android:text="@string/settings"
                 android:textColor="@color/colorBrowserText"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/history_menu_image"
-                app:layout_constraintStart_toEndOf="@+id/history_close_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/settings_close_image"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:id="@+id/history_menu_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/options_menu"
-                android:contentDescription="@string/history_dialog_menu" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/history_recyclerview"
+    <fragment
+        android:name="app.spidy.kookaburra.fragments.SettingsFragment"
+        android:id="@+id/settings_holder"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabs_toolbar"
-        tools:listitem="@layout/layout_bookmark_and_history_item" />
+        tools:listitem="@layout/browser_layout_bookmark_and_history_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

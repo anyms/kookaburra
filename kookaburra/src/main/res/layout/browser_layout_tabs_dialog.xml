@@ -70,6 +70,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabs_toolbar"
-        tools:listitem="@layout/layout_tab_item" />
+        tools:listitem="@layout/browser_layout_tab_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

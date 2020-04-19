@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
 
 
     defaultConfig {
@@ -45,6 +45,6 @@ dependencies {
     kapt 'androidx.room:room-compiler:2.2.5'
     implementation 'androidx.preference:preference:1.1.1'
 
-    implementation 'com.github.anyms:android-utils:1.0.0'
+    implementation 'com.github.anyms:android-utils:1.0.1'
     implementation 'com.bartoszlipinski:viewpropertyobjectanimator:1.4.5'
 }

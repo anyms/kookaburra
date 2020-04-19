@@ -23,7 +23,7 @@ class TabAdapter(
 ) : RecyclerView.Adapter<TabAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.layout_tab_item, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.browser_layout_tab_item, parent, false)
         return ViewHolder(view)
     }
 

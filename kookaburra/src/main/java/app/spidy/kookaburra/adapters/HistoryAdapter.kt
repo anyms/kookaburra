@@ -16,7 +16,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import app.spidy.kookaburra.R
 import app.spidy.kookaburra.controllers.Browser
-import app.spidy.kookaburra.data.Bookmark
 import app.spidy.kookaburra.data.History
 import app.spidy.kotlinutils.onUiThread
 import kotlin.concurrent.thread
@@ -29,7 +28,7 @@ class HistoryAdapter(
 ) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.layout_bookmark_and_history_item, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.browser_layout_bookmark_and_history_item, parent, false)
         return ViewHolder(v)
     }
 

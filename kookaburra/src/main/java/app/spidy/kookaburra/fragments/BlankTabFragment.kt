@@ -18,7 +18,7 @@ class BlankTabFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_blank_tab, container, false)
+        return inflater.inflate(R.layout.browser_fragment_blank_tab, container, false)
     }
 
 
