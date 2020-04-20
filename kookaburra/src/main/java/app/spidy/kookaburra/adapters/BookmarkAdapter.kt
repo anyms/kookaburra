@@ -46,7 +46,7 @@ class BookmarkAdapter(
             } else {
                 PopupMenu(context, holder.bookmarkMenuImage)
             }
-            popupMenu.inflate(R.menu.menu_bookmark_item)
+            popupMenu.inflate(R.menu.browser_menu_bookmark_item)
             popupMenu.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.bookmark_open -> {

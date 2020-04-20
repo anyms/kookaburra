@@ -17,7 +17,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_microphone" />
+        app:srcCompat="@drawable/browser_ic_microphone" />
 
     <EditText
         android:textColor="@color/colorBrowserText"
@@ -47,5 +47,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_close" />
+        app:srcCompat="@drawable/browser_ic_close" />
 </androidx.constraintlayout.widget.ConstraintLayout>

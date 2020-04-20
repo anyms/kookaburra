@@ -41,7 +41,7 @@
             android:contentDescription="@string/browser_encryption_icon"
             android:padding="3dp"
             android:layout_width="25dp"
-            android:layout_height="25dp" app:srcCompat="@drawable/ic_protocol_secure"
+            android:layout_height="25dp" app:srcCompat="@drawable/browser_ic_protocol_secure"
             android:id="@+id/protocol_image"
             app:layout_constraintStart_toStartOf="@+id/title_bar"
             app:layout_constraintBottom_toBottomOf="@+id/title_bar" android:adjustViewBounds="true"

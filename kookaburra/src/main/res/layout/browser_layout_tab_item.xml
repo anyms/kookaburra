@@ -9,7 +9,7 @@
     android:layout_marginBottom="10dp"
     android:layout_marginEnd="20dp"
     android:layout_marginStart="20dp"
-    android:background="@drawable/tab_background"
+    android:background="@drawable/browser_tab_background"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -17,7 +17,7 @@
         android:contentDescription="@string/website_fav_icon"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        app:srcCompat="@drawable/page_icon"
+        app:srcCompat="@drawable/browser_page_icon"
         android:id="@+id/fav_icon_image" android:adjustViewBounds="true"
         android:scaleType="fitXY"
         app:layout_constraintTop_toTopOf="parent"
@@ -29,7 +29,7 @@
         android:padding="10dp"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        app:srcCompat="@drawable/cancel_icon"
+        app:srcCompat="@drawable/browser_cancel_icon"
         android:id="@+id/tab_close_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

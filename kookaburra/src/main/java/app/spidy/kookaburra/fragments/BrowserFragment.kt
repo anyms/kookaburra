@@ -143,7 +143,7 @@ class BrowserFragment : Fragment() {
                     }
                 }
             } else {
-                tabsDialogTabCountIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.tab_count_9_plus))
+                tabsDialogTabCountIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.browser_tab_count_9_plus))
             }
         }
 
@@ -295,7 +295,7 @@ class BrowserFragment : Fragment() {
             } else {
                 PopupMenu(context, bookmarkMenuImage)
             }
-            popupMenu.inflate(R.menu.menu_simple)
+            popupMenu.inflate(R.menu.browser_menu_simple)
             popupMenu.setOnMenuItemClickListener { item ->
                 when(item.itemId) {
                     R.id.remove_all -> {
@@ -361,7 +361,7 @@ class BrowserFragment : Fragment() {
             } else {
                 PopupMenu(context, historyMenuImage)
             }
-            popupMenu.inflate(R.menu.menu_simple)
+            popupMenu.inflate(R.menu.browser_menu_simple)
             popupMenu.setOnMenuItemClickListener { item ->
                 when(item.itemId) {
                     R.id.remove_all -> {
@@ -608,18 +608,18 @@ class BrowserFragment : Fragment() {
 
                 onUiThread {
                     if (bookmarked) {
-                        menuBookmarkImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.bookmark_full))
+                        menuBookmarkImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.browser_bookmark_full))
                     } else {
-                        menuBookmarkImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.bookmark_empty))
+                        menuBookmarkImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.browser_bookmark_empty))
                     }
                 }
             }
 
             browser.currentTab?.fragment?.webview?.also {
                 if (it.canGoForward()) {
-                    menuGoForwardImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.arrow_forward))
+                    menuGoForwardImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.browser_arrow_forward))
                 } else {
-                    menuGoForwardImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.arrow_forward_disabled))
+                    menuGoForwardImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.browser_arrow_forward_disabled))
                 }
             }
         }
@@ -695,7 +695,7 @@ class BrowserFragment : Fragment() {
     /* Override methods */
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_browser, menu)
+        inflater.inflate(R.menu.browser_menu_browser, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 

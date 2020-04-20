@@ -47,7 +47,7 @@ class HistoryAdapter(
             } else {
                 PopupMenu(context, holder.bookmarkMenuImage)
             }
-            popupMenu.inflate(R.menu.menu_bookmark_item)
+            popupMenu.inflate(R.menu.browser_menu_bookmark_item)
             popupMenu.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.bookmark_open -> {
@@ -97,7 +97,7 @@ class HistoryAdapter(
         val favIconImage: ImageView = v.findViewById(R.id.fav_icon_image)
 
         init {
-            favIconImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_watch_later))
+            favIconImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.browser_ic_watch_later))
         }
     }
 }

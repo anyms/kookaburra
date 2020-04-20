@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ListPreference
-        android:icon="@drawable/ic_link"
+        android:icon="@drawable/browser_ic_link"
         android:key="search_engine"
         android:entries="@array/search_engine_titles"
         android:entryValues="@array/search_engine_values"
@@ -11,13 +11,13 @@
         android:summary="Duck Duck Go"/>
 
     <CheckBoxPreference
-        android:icon="@drawable/ic_code"
+        android:icon="@drawable/browser_ic_code"
         android:key="disable_javascript"
         android:title="Disable JavaScript"
         android:summary="Prevent executing JavaScript on all websites"/>
 
     <CheckBoxPreference
-        android:icon="@drawable/ic_block"
+        android:icon="@drawable/browser_ic_block"
         android:key="disable_adblock"
         android:title="Disable Adblock"
         android:summary="Start showing ads"/>

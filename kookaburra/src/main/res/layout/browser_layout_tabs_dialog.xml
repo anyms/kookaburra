@@ -30,7 +30,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/add_icon" />
+                app:srcCompat="@drawable/browser_add_icon" />
 
             <ImageView
                 android:paddingTop="20dp"
@@ -43,7 +43,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/bookmarks_close_image"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/tab_count_1" />
+                app:srcCompat="@drawable/browser_tab_count_1" />
 
             <ImageView
                 android:paddingTop="20dp"
@@ -56,7 +56,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/options_menu" />
+                app:srcCompat="@drawable/browser_options_menu" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

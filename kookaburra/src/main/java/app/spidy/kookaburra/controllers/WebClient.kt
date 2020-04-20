@@ -1,6 +1,5 @@
 package app.spidy.kookaburra.controllers
 
-import android.annotation.TargetApi
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
@@ -11,17 +10,13 @@ import android.os.Build
 import android.os.Message
 import android.util.Log
 import android.webkit.*
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import app.spidy.kookaburra.R
-import app.spidy.kookaburra.data.History
 import app.spidy.kotlinutils.toast
 import java.net.URI
 import java.net.URISyntaxException
 import java.net.URLEncoder
-import java.util.*
-import kotlin.concurrent.thread
 
 
 class WebClient(
@@ -40,13 +35,13 @@ class WebClient(
                 browser.tabAdapter.notifyDataSetChanged()
                 when {
                     browser.sslErroredDomains.contains(URI(URLEncoder.encode(url, "UTF-8")).host) -> {
-                        browser.protocolImage?.setImageDrawable(ContextCompat.getDrawable(view.context, R.drawable.protocol_error))
+                        browser.protocolImage?.setImageDrawable(ContextCompat.getDrawable(view.context, R.drawable.browser_protocol_error))
                     }
                     view.url.startsWith("https://") -> {
-                        browser.protocolImage?.setImageDrawable(ContextCompat.getDrawable(view.context, R.drawable.protocol_secure))
+                        browser.protocolImage?.setImageDrawable(ContextCompat.getDrawable(view.context, R.drawable.browser_protocol_secure))
                     }
                     else -> {
-                        browser.protocolImage?.setImageDrawable(ContextCompat.getDrawable(view.context, R.drawable.protocol_info))
+                        browser.protocolImage?.setImageDrawable(ContextCompat.getDrawable(view.context, R.drawable.browser_protocol_info))
                     }
                 }
                 browser.browserListener?.onNewUrl(view, prettyUrl)
@@ -70,7 +65,7 @@ class WebClient(
         browser.showProgressBar()
         view?.also {
             browser.saveState(browser.currentTab?.tabId.toString(), view)
-            browser.menuRefreshImage?.setImageDrawable(ContextCompat.getDrawable(view.context, R.drawable.ic_close))
+            browser.menuRefreshImage?.setImageDrawable(ContextCompat.getDrawable(view.context, R.drawable.browser_ic_close))
         }
         if (browser.currentTab != null) {
             browser.updateTab(browser.currentTab!!)
@@ -85,7 +80,7 @@ class WebClient(
         super.onPageFinished(view, url)
         view?.also {
             browser.saveState(browser.currentTab?.tabId.toString(), view)
-            browser.menuRefreshImage?.setImageDrawable(ContextCompat.getDrawable(view.context, R.drawable.refresh_icon))
+            browser.menuRefreshImage?.setImageDrawable(ContextCompat.getDrawable(view.context, R.drawable.browser_refresh_icon))
         }
         if (browser.currentTab != null) {
             browser.updateTab(browser.currentTab!!)

@@ -52,9 +52,9 @@ class TabAdapter(
         }
 
         if (holder.adapterPosition == browser.needle) {
-            holder.tabRootLayout.setBackgroundResource(R.drawable.tab_background_active)
+            holder.tabRootLayout.setBackgroundResource(R.drawable.browser_tab_background_active)
         } else {
-            holder.tabRootLayout.setBackgroundResource(R.drawable.tab_background)
+            holder.tabRootLayout.setBackgroundResource(R.drawable.browser_tab_background)
         }
 
         holder.tabTitleView.text = tabs[position].title
@@ -64,7 +64,7 @@ class TabAdapter(
             holder.tabFavIcon.setImageBitmap(BitmapFactory.decodeByteArray(tabs[position].favIcon,
                 0, tabs[position].favIcon!!.size))
         } else {
-            holder.tabFavIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.page_icon))
+            holder.tabFavIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.browser_page_icon))
         }
 
         holder.tabRootLayout.setOnClickListener {

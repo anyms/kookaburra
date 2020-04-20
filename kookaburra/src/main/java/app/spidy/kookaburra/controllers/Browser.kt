@@ -104,7 +104,7 @@ class Browser(
                     toolbar.setNavigationIcon(id)
                 } catch (e: Exception) {}
             } else {
-                toolbar.setNavigationIcon(R.drawable.tab_count_9_plus)
+                toolbar.setNavigationIcon(R.drawable.browser_tab_count_9_plus)
             }
         }
     var url: String

@@ -25,7 +25,7 @@
                     android:paddingEnd="14dp"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    card_view:srcCompat="@drawable/page_info_icon"
+                    card_view:srcCompat="@drawable/browser_page_info_icon"
                     android:id="@+id/menuPageInfoImage"
                     android:focusable="true"
                     android:adjustViewBounds="true"
@@ -37,7 +37,7 @@
                     android:paddingStart="14dp"
                     android:paddingEnd="14dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp" card_view:srcCompat="@drawable/refresh_icon"
+                    android:layout_height="50dp" card_view:srcCompat="@drawable/browser_refresh_icon"
                     android:id="@+id/refreshImage" android:layout_weight="1" android:focusable="true"
                     android:scaleType="fitCenter" android:adjustViewBounds="true"/>
                 <ImageView
@@ -47,7 +47,7 @@
                     android:paddingStart="14dp"
                     android:paddingEnd="14dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp" card_view:srcCompat="@drawable/bookmark_empty"
+                    android:layout_height="50dp" card_view:srcCompat="@drawable/browser_bookmark_empty"
                     android:id="@+id/menuBookmarkImage" android:layout_weight="1" android:focusable="true"
                     android:scaleType="fitCenter" android:adjustViewBounds="true"/>
                 <ImageView
@@ -57,7 +57,7 @@
                     android:paddingStart="14dp"
                     android:paddingEnd="14dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp" card_view:srcCompat="@drawable/arrow_forward"
+                    android:layout_height="50dp" card_view:srcCompat="@drawable/browser_arrow_forward"
                     android:id="@+id/goForwardImage" android:focusable="true" android:adjustViewBounds="true"
                     android:scaleType="fitCenter"/>
 
