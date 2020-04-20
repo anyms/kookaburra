@@ -137,7 +137,7 @@ class BrowserFragment : Fragment() {
             tabAdapter.notifyDataSetChanged()
             if (browser.tabs.size <= 9) {
                 ignore {
-                    context?.resources?.getIdentifier("tab_count_${browser.tabs.size}",
+                    context?.resources?.getIdentifier("browser_tab_count_${browser.tabs.size}",
                         "drawable", context?.packageName)?.also {
                         tabsDialogTabCountIcon.setImageDrawable(ContextCompat.getDrawable(requireContext(), it))
                     }

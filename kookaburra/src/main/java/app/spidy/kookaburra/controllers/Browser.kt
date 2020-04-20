@@ -100,7 +100,7 @@ class Browser(
         set(value) {
             if (value <= 9) {
                 try {
-                    val id = context.resources.getIdentifier("tab_count_${value}", "drawable", context.packageName)
+                    val id = context.resources.getIdentifier("browser_tab_count_${value}", "drawable", context.packageName)
                     toolbar.setNavigationIcon(id)
                 } catch (e: Exception) {}
             } else {
