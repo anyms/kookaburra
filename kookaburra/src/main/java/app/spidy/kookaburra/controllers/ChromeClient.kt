@@ -26,7 +26,7 @@ class ChromeClient(
 
     override fun onReceivedTitle(view: WebView?, title: String?) {
         title?.also {
-            browser.title = it
+            if (view != null) browser.setTitle(view, title)
             browser.tabAdapter.notifyDataSetChanged()
 
             thread {

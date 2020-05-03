@@ -66,6 +66,7 @@ class WebviewFragment : Fragment() {
             supportZoom()
             displayZoomControls = false
         }
+        browser.cookieManager.acceptCookie()
         webview.webChromeClient =
             ChromeClient(requireContext(), browser)
         webview.webViewClient =

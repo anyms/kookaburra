@@ -87,6 +87,8 @@ class Browser(
         .fallbackToDestructiveMigration().build()
     private val tinyDB = TinyDB(context)
 
+    val cookieManager = CookieManager.getInstance()
+
     val currentTab: Tab?
         get() {
             return try {
@@ -107,18 +109,12 @@ class Browser(
                 toolbar.setNavigationIcon(R.drawable.browser_tab_count_9_plus)
             }
         }
-    var url: String
+    val url: String
         get() = tabs[needle].url
-        set(value) {
-            urlField.setText(value)
-            tabs[needle].url = value
-        }
-    var title: String
+
+    val title: String
         get() = tabs[needle].title
-        set(value) {
-            titleBar.text = value
-            tabs[needle].title = value
-        }
+
     val searchEngine: String
         get() {
             val engine = tinyDB.getString("search_engine")
@@ -157,8 +153,47 @@ class Browser(
         }
     }
 
+    fun loadWithCustomUserAgent(userAgent: String) {
+        currentTab?.fragment?.webview?.apply {
+            settings?.userAgentString = userAgent
+            reload()
+        }
+    }
+
 
     /* Public methods */
+
+    fun setTitle(webView: WebView, title: String) {
+        for (i in tabs.indices) {
+            try {
+                if (tabs[i].fragment?.webview == webView) {
+                    tabs[i].title = title
+                    break
+                }
+            } catch (e: UninitializedPropertyAccessException) {}
+        }
+        try {
+            if (currentTab?.fragment?.webview == webView) {
+                titleBar.text = title
+            }
+        } catch (e: UninitializedPropertyAccessException) {}
+    }
+
+    fun setUrl(webView: WebView, url: String) {
+        for (i in tabs.indices) {
+            try {
+                if (tabs[i].fragment?.webview == webView) {
+                    tabs[i].url = url
+                    break
+                }
+            } catch (e: UninitializedPropertyAccessException) {}
+        }
+        try {
+            if (currentTab?.fragment?.webview == webView) {
+                urlField.setText(url)
+            }
+        } catch (e: UninitializedPropertyAccessException){}
+    }
 
     fun newTab(url: String) {
         val fragment = WebviewFragment()

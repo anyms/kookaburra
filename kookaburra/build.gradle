@@ -47,4 +47,5 @@ dependencies {
 
     implementation 'com.github.anyms:android-utils:1.0.1'
     implementation 'com.bartoszlipinski:viewpropertyobjectanimator:1.4.5'
+    implementation 'com.github.anyms:hiper:1.0.3'
 }

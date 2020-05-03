@@ -43,6 +43,7 @@
     <string name="remove_all">Remove all</string>
     <string name="close">Close</string>
     <string name="settings_close_image">Settings close image</string>
+    <string name="autocomp_image">Auto complete image</string>
 
     <string-array name="search_engine_titles">
         <item>Duck Duck Go</item>

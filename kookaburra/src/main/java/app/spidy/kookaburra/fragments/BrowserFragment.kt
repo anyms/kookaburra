@@ -11,6 +11,8 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.speech.RecognizerIntent
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -24,7 +26,9 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import app.spidy.hiper.Hiper
 import app.spidy.kookaburra.R
+import app.spidy.kookaburra.adapters.SuggestionAdapter
 import app.spidy.kookaburra.adapters.BookmarkAdapter
 import app.spidy.kookaburra.adapters.HistoryAdapter
 import app.spidy.kookaburra.adapters.TabAdapter
@@ -40,10 +44,12 @@ import app.spidy.kotlinutils.onUiThread
 import app.spidy.kotlinutils.toast
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
+import org.json.JSONArray
 import java.io.File
 import java.net.URI
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 import kotlin.concurrent.thread
 
 
@@ -60,6 +66,7 @@ class BrowserFragment : Fragment() {
     private lateinit var urlBar: ConstraintLayout
     private lateinit var urlMicrophoneImage: ImageView
     private lateinit var browserOverlay: FrameLayout
+    private lateinit var suggestionRecyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
     private lateinit var clearUrlImage: ImageView
     private lateinit var tabsDialog: Dialog
@@ -73,6 +80,7 @@ class BrowserFragment : Fragment() {
     private lateinit var protocolStatusView: TextView
     private lateinit var protocolDomainView: TextView
     private lateinit var protocolMessageView: TextView
+    private lateinit var suggestionAdapter: SuggestionAdapter
 
     private lateinit var browser: Browser
     private lateinit var tabAdapter: TabAdapter
@@ -81,6 +89,9 @@ class BrowserFragment : Fragment() {
 
     var browserListener: Browser.Listener? = null
     private var isOverlayShowing = false
+    private val suggestions = ArrayList<String>()
+    private val hiper = Hiper.getAsyncInstance()
+    private val searchEngineCookies = HashMap<String, String>()
 
 
     val currentTab: Tab?
@@ -106,6 +117,7 @@ class BrowserFragment : Fragment() {
         urlMicrophoneImage = view.findViewById(R.id.url_microphone)
         urlBar = view.findViewById(R.id.browser_urlbar)
         browserOverlay = view.findViewById(R.id.browser_overlay)
+        suggestionRecyclerView = view.findViewById(R.id.suggestion_recyclerview)
         progressBar = view.findViewById(R.id.progressBar)
         clearUrlImage = view.findViewById(R.id.clear_url)
         protocolImage = view.findViewById(R.id.protocol_image)
@@ -121,6 +133,9 @@ class BrowserFragment : Fragment() {
             progressBar,
             browserListener
         )
+        suggestionAdapter = SuggestionAdapter(requireContext(), suggestions, browser, urlField) {
+            hideUrlField()
+        }
         tabsDialog = createTabDialog()
         menuDialog = createOptionMenu(requireContext())
         protocolDialog = createProtocolDialog(requireContext())
@@ -132,6 +147,9 @@ class BrowserFragment : Fragment() {
 
         setHasOptionsMenu(true)
         (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
+
+        suggestionRecyclerView.adapter = suggestionAdapter
+        suggestionRecyclerView.layoutManager = LinearLayoutManager(context)
 
         tabsDialog.setOnShowListener {
             tabAdapter.notifyDataSetChanged()
@@ -157,6 +175,7 @@ class BrowserFragment : Fragment() {
             toolbar.visibility = View.GONE
             urlBar.visibility = View.VISIBLE
             browserOverlay.visibility = View.VISIBLE
+            suggestionRecyclerView.visibility = View.VISIBLE
             urlField.requestFocus()
 
             // Select text from search bar
@@ -185,6 +204,50 @@ class BrowserFragment : Fragment() {
             return@setOnEditorActionListener true
         }
 
+        val cooks = browser.cookieManager.getCookie("https://www.google.com")?.split(";")
+        if (cooks != null) {
+            for (cook in cooks) {
+                val nodes = cook.trim().split("=")
+                searchEngineCookies[nodes[0].trim()] = nodes[1].trim()
+            }
+        }
+
+        urlField.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val query = s?.toString()
+                suggestions.clear()
+                if (query == null || query == "") {
+                    suggestionAdapter.notifyDataSetChanged()
+                } else {
+                    hiper.get("http://suggestqueries.google.com/complete/search?client=firefox&q=$query", cookies = searchEngineCookies)
+                        .then {
+                            val arr = JSONArray(it.text)
+                            if (arr.length() >= 2) {
+                                val suggs = arr.getJSONArray(1)
+                                for (i in 0 until suggs.length()) {
+                                    suggestions.add(suggs.getString(i))
+                                }
+                            }
+                            onUiThread {
+                                suggestionAdapter.notifyDataSetChanged()
+                            }
+                            it.close()
+                        }.catch {
+                            onUiThread {
+                                suggestionAdapter.notifyDataSetChanged()
+                            }
+                        }
+                }
+            }
+        })
+
         clearUrlImage.setOnClickListener {
             urlField.setText("")
         }
@@ -199,6 +262,7 @@ class BrowserFragment : Fragment() {
         toolbar.visibility = View.VISIBLE
         urlBar.visibility = View.GONE
         browserOverlay.visibility = View.GONE
+        suggestionRecyclerView.visibility = View.GONE
 
         // Hide keyboard
         val imm = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as? InputMethodManager
@@ -669,15 +733,19 @@ class BrowserFragment : Fragment() {
     /* Activity level method */
     fun onBackPressed(): Boolean {
         browser.currentTab?.fragment?.webview?.also {
-            if (it.canGoBack()) {
-                it.goBack()
-                return true
-            } else if (isOverlayShowing) {
+            if (isOverlayShowing) {
                 hideUrlField()
+                return true
+            } else if (it.canGoBack()) {
+                it.goBack()
                 return true
             }
         }
         return false
+    }
+
+    fun loadWithCustomUserAgent(userAgent: String) {
+        browser.loadWithCustomUserAgent(userAgent)
     }
 
 

@@ -19,7 +19,7 @@ class BrowserListener : Browser.Listener {
     private var cookies = HashMap<String, String>()
 
     override fun shouldInterceptRequest(view: WebView, activity: FragmentActivity?, url: String, request: WebResourceRequest?) {
-        init(url, request?.requestHeaders, view)
+
     }
 
     override fun onNewUrl(view: WebView, url: String) {

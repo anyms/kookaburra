@@ -31,7 +31,7 @@ class WebClient(
             if (view?.url != null) {
                 val prettyUrl = if (view.url.endsWith('/')) view.url.trimEnd('/') else view.url
                 lastUrl = view.url
-                browser.url = prettyUrl
+                browser.setUrl(view, prettyUrl)
                 browser.tabAdapter.notifyDataSetChanged()
                 when {
                     browser.sslErroredDomains.contains(URI(URLEncoder.encode(url, "UTF-8")).host) -> {
