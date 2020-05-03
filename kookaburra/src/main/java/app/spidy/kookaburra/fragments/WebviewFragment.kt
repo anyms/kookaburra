@@ -188,44 +188,44 @@ class WebviewFragment : Fragment() {
                             .show()
                     }
                 }
-            }
 
-            menu.add("Share image")
-            callbacks.add {
-                if (hr.extra != null) {
-                    Snackbar.make(webview, "Fetching image...", Snackbar.LENGTH_SHORT).show()
-                    thread {
-                        val fileDir = requireContext().getExternalFilesDir("__images__")
+                menu.add("Share image")
+                callbacks.add {
+                    if (hr.extra != null) {
+                        Snackbar.make(webview, "Fetching image...", Snackbar.LENGTH_SHORT).show()
+                        thread {
+                            val fileDir = requireContext().getExternalFilesDir("__images__")
 
-                        assert(fileDir != null)
-                        if (!fileDir!!.exists()) {
-                            fileDir.mkdirs()
-                        }
+                            assert(fileDir != null)
+                            if (!fileDir!!.exists()) {
+                                fileDir.mkdirs()
+                            }
 
-                        val file = File(fileDir, "share.png")
+                            val file = File(fileDir, "share.png")
 
-                        val fOut = FileOutputStream(file)
-                        val imageUrl = hr.extra
-                        if (imageUrl!!.startsWith("data:")) {
-                            val base64EncodedString = imageUrl.substring(imageUrl.indexOf(",") + 1)
-                            fOut.write(Base64.decode(base64EncodedString, Base64.DEFAULT))
-                        } else {
-                            val u = URL(imageUrl)
-                            val bitmap = BitmapFactory.decodeStream(u.openConnection().getInputStream())
-                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut)
-                        }
+                            val fOut = FileOutputStream(file)
+                            val imageUrl = hr.extra
+                            if (imageUrl!!.startsWith("data:")) {
+                                val base64EncodedString = imageUrl.substring(imageUrl.indexOf(",") + 1)
+                                fOut.write(Base64.decode(base64EncodedString, Base64.DEFAULT))
+                            } else {
+                                val u = URL(imageUrl)
+                                val bitmap = BitmapFactory.decodeStream(u.openConnection().getInputStream())
+                                bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut)
+                            }
 
-                        fOut.flush()
-                        fOut.close()
+                            fOut.flush()
+                            fOut.close()
 
-                        context?.onUiThread {
-                            val imageUri = FileProvider.getUriForFile(requireContext(), requireContext().applicationContext.packageName + ".provider", file)
-                            val sharingIntent = Intent(Intent.ACTION_SEND)
-                            sharingIntent.type = "image/*"
-                            sharingIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                            sharingIntent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-                            sharingIntent.putExtra(Intent.EXTRA_STREAM, imageUri)
-                            startActivity(Intent.createChooser(sharingIntent, "Share via"))
+                            context?.onUiThread {
+                                val imageUri = FileProvider.getUriForFile(requireContext(), requireContext().applicationContext.packageName + ".provider", file)
+                                val sharingIntent = Intent(Intent.ACTION_SEND)
+                                sharingIntent.type = "image/*"
+                                sharingIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                                sharingIntent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                                sharingIntent.putExtra(Intent.EXTRA_STREAM, imageUri)
+                                startActivity(Intent.createChooser(sharingIntent, "Share via"))
+                            }
                         }
                     }
                 }
