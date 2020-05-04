@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         browserFragment = BrowserFragment()
-        browserFragment.browserListener = BrowserListener()
+//        browserFragment.browserListener = BrowserListener()
         supportFragmentManager.beginTransaction()
             .add(R.id.browser_holder, browserFragment)
             .commit()
