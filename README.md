@@ -1,9 +1,33 @@
+[![](https://jitpack.io/v/anyms/kookaburra.svg)](https://jitpack.io/#anyms/kookaburra)
+[![Build Status](https://travis-ci.org/anyms/kookaburra.svg?branch=master)](https://travis-ci.org/anyms/kookaburra)
+[![License](https://img.shields.io/github/license/anyms/kookaburra.svg)](https://github.com/anyms/kookaburra/blob/master/LICENSE)
+
+
 # A Light Weight Browser for Android
 
 
 There are tons of Android browsers on GitHub, but none of them are supporting current API level. Android Q depricated lot of APIs so, I made this browser to be follow the Android Q supporting.
 
-# Getting Started
+### Getting Started
+
+Add it in your root build.gradle at the end of repositories
+
+```css
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+Add the dependency
+
+```css
+dependencies {
+    implementation 'com.github.anyms:hiper:Tag'
+}
+``
 
 To add the browser to your app, create an activity for example `BrowserActivity.kt`, then add the `BrowserFragment`.
 
