@@ -12,7 +12,7 @@ There are tons of Android browsers on GitHub, but none of them are supporting cu
 
 Add it in your root build.gradle at the end of repositories
 
-```css
+```scss
 allprojects {
     repositories {
         ...
@@ -23,9 +23,9 @@ allprojects {
 
 Add the dependency
 
-```css
+```scss
 dependencies {
-    implementation 'com.github.anyms:hiper:Tag'
+    implementation 'com.github.anyms:kookaburra:Tag'
 }
 ```
 
