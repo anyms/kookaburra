@@ -27,7 +27,7 @@ Add the dependency
 dependencies {
     implementation 'com.github.anyms:hiper:Tag'
 }
-``
+```
 
 To add the browser to your app, create an activity for example `BrowserActivity.kt`, then add the `BrowserFragment`.
 
