@@ -226,7 +226,7 @@ class BrowserFragment : Fragment() {
                 if (query == null || query == "") {
                     suggestionAdapter.notifyDataSetChanged()
                 } else {
-                    hiper.get("http://suggestqueries.google.com/complete/search?client=firefox&q=$query", cookies = searchEngineCookies)
+                    hiper.get("https://suggestqueries.google.com/complete/search?client=firefox&q=$query", cookies = searchEngineCookies)
                         .then {
                             val arr = JSONArray(it.text)
                             if (arr.length() >= 2) {
