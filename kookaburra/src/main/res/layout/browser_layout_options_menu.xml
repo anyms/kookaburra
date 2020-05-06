@@ -63,6 +63,14 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/additionalMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </LinearLayout>
+
             <TextView
                 android:clickable="true"
                 android:textColor="@color/colorBrowserText"
@@ -74,7 +82,8 @@
                 android:textSize="17sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/menuBookmarks" android:focusable="true"/>
+                android:id="@+id/menuBookmarks"
+                android:focusable="true"/>
 
             <TextView
                 android:visibility="gone"

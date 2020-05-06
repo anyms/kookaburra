@@ -92,6 +92,8 @@ class BrowserFragment : Fragment() {
     private val suggestions = ArrayList<String>()
     private val hiper = Hiper.getAsyncInstance()
     private val searchEngineCookies = HashMap<String, String>()
+    private val additionalMenuViews = ArrayList<View>()
+    private val additionalMenuCallbacks = ArrayList<(View) -> Unit>()
 
 
     val currentTab: Tab?
@@ -493,6 +495,11 @@ class BrowserFragment : Fragment() {
         return dialog
     }
 
+    fun addMenu(v: View, callback: (View) -> Unit) {
+        additionalMenuViews.add(v)
+        additionalMenuCallbacks.add(callback)
+    }
+
     private fun createOptionMenu(context: Context): AlertDialog {
         val builder = AlertDialog.Builder(context, R.style.BrowserTheme_DialogTheme)
         val root: ViewGroup? = null
@@ -508,6 +515,16 @@ class BrowserFragment : Fragment() {
         params?.x = 0
         params?.y = 0
         wind?.attributes = params
+
+        val additionalMenu: ViewGroup = menuDialogView.findViewById(R.id.additionalMenu)
+
+        for (i in additionalMenuViews.indices) {
+            additionalMenu.addView(additionalMenuViews[i], 0)
+            additionalMenuViews[i].setOnClickListener {
+                additionalMenuCallbacks[i].invoke(additionalMenuViews[i])
+                menuDialog.dismiss()
+            }
+        }
 
         val menuRefreshImage: ImageView = menuDialogView.findViewById(R.id.refreshImage)
         val menuGoForwardImage: ImageView = menuDialogView.findViewById(R.id.goForwardImage)
