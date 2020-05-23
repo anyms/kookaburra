@@ -7,6 +7,7 @@ import android.app.DownloadManager
 import android.content.*
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -88,13 +89,14 @@ class BrowserFragment : Fragment() {
     private val viewGroup: ViewGroup? = null
 
     var browserListener: Browser.Listener? = null
-    var menu: Menu? = null
+    private var menu: Menu? = null
     private var isOverlayShowing = false
     private val suggestions = ArrayList<String>()
     private val hiper = Hiper.getAsyncInstance()
     private val searchEngineCookies = HashMap<String, String>()
     private val additionalMenuViews = ArrayList<View>()
     private val additionalMenuCallbacks = ArrayList<(View) -> Unit>()
+    private val optionMenuCallbacks = HashMap<Int, () -> Unit>()
 
 
     val currentTab: Tab?
@@ -501,6 +503,14 @@ class BrowserFragment : Fragment() {
         additionalMenuCallbacks.add(callback)
     }
 
+    fun addOptionMenu(menuId: Int, title: String, icon: Drawable, showAsAction: Int, callback: () -> Unit) {
+        menu?.add(title)
+        menu?.getItem(menuId)?.icon = icon
+        menu?.getItem(menuId)?.setShowAsAction(showAsAction)
+
+        optionMenuCallbacks[menuId] = callback
+    }
+
     private fun createOptionMenu(context: Context): AlertDialog {
         val builder = AlertDialog.Builder(context, R.style.BrowserTheme_DialogTheme)
         val root: ViewGroup? = null
@@ -787,11 +797,15 @@ class BrowserFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        item.itemId.also { id ->
-            when(id) {
-                R.id.menuShowMenu -> menuDialog.show()
+        when(item.itemId) {
+            R.id.menuShowMenu -> menuDialog.show()
+            else -> {
+                if (item.itemId in optionMenuCallbacks) {
+                    optionMenuCallbacks[item.itemId]?.invoke()
+                }
             }
         }
+
         return true
     }
 
