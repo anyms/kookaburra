@@ -39,6 +39,7 @@ import app.spidy.kookaburra.controllers.PermissionHandler
 import app.spidy.kookaburra.controllers.getCurrentDateTime
 import app.spidy.kookaburra.controllers.toString
 import app.spidy.kookaburra.data.History
+import app.spidy.kookaburra.data.OptionMenuItem
 import app.spidy.kookaburra.data.Tab
 import app.spidy.kotlinutils.ignore
 import app.spidy.kotlinutils.onUiThread
@@ -96,7 +97,7 @@ class BrowserFragment : Fragment() {
     private val searchEngineCookies = HashMap<String, String>()
     private val additionalMenuViews = ArrayList<View>()
     private val additionalMenuCallbacks = ArrayList<(View) -> Unit>()
-    private val optionMenuCallbacks = HashMap<Int, () -> Unit>()
+    private val optionMenuItems = ArrayList<OptionMenuItem>()
 
 
     val currentTab: Tab?
@@ -503,12 +504,14 @@ class BrowserFragment : Fragment() {
         additionalMenuCallbacks.add(callback)
     }
 
-    fun addOptionMenu(menuId: Int, title: String, icon: Drawable, showAsAction: Int, callback: () -> Unit) {
-        menu?.add(title)
-        menu?.getItem(menuId)?.icon = icon
-        menu?.getItem(menuId)?.setShowAsAction(showAsAction)
-
-        optionMenuCallbacks[menuId] = callback
+    fun addOptionMenu(menuId: Int, title: String, icon: Drawable?, showAsAction: Int, callback: () -> Unit) {
+        optionMenuItems.add(OptionMenuItem(
+            title = title,
+            icon = icon,
+            menuId = menuId,
+            showAsAction = showAsAction,
+            callback = callback
+        ))
     }
 
     private fun createOptionMenu(context: Context): AlertDialog {
@@ -791,8 +794,12 @@ class BrowserFragment : Fragment() {
     /* Override methods */
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        for (menuItem in optionMenuItems) {
+            menu.add(Menu.NONE, menuItem.menuId, 0, menuItem.title)
+            menu.getItem(0)?.icon = menuItem.icon
+            menu.getItem(0)?.setShowAsAction(menuItem.showAsAction)
+        }
         inflater.inflate(R.menu.browser_menu_browser, menu)
-        this.menu = menu
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -800,9 +807,9 @@ class BrowserFragment : Fragment() {
         when(item.itemId) {
             R.id.menuShowMenu -> menuDialog.show()
             else -> {
-                if (item.itemId in optionMenuCallbacks) {
-                    optionMenuCallbacks[item.itemId]?.invoke()
-                }
+//                if (item.itemId in optionMenuCallbacks) {
+//                    optionMenuCallbacks[item.itemId]?.invoke()
+//                }
             }
         }
 
