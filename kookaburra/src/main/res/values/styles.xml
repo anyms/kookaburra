@@ -4,7 +4,7 @@
     <style name="BrowserTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorBrowserWhite</item>
-        <item name="colorPrimaryDark">@color/colorBrowserWhite</item>
+        <item name="colorPrimaryDark">@color/colorBrowserText</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 

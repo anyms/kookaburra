@@ -4,4 +4,12 @@
     <style name="FullScreenDialogTheme" parent="android:Theme.DeviceDefault.Light.NoActionBar">
         <item name="android:windowLightStatusBar">false</item>
     </style>
+
+    <style name="BrowserTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorBrowserWhite</item>
+        <item name="colorPrimaryDark">@color/colorBrowserWhite</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
 </resources>
