@@ -88,6 +88,7 @@ class BrowserFragment : Fragment() {
     private val viewGroup: ViewGroup? = null
 
     var browserListener: Browser.Listener? = null
+    var menu: Menu? = null
     private var isOverlayShowing = false
     private val suggestions = ArrayList<String>()
     private val hiper = Hiper.getAsyncInstance()
@@ -781,6 +782,7 @@ class BrowserFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.browser_menu_browser, menu)
+        this.menu = menu
         super.onCreateOptionsMenu(menu, inflater)
     }
 
