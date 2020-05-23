@@ -807,9 +807,12 @@ class BrowserFragment : Fragment() {
         when(item.itemId) {
             R.id.menuShowMenu -> menuDialog.show()
             else -> {
-//                if (item.itemId in optionMenuCallbacks) {
-//                    optionMenuCallbacks[item.itemId]?.invoke()
-//                }
+                for (menuItem in optionMenuItems) {
+                    if (menuItem.menuId == item.itemId) {
+                        menuItem.callback.invoke()
+                        break
+                    }
+                }
             }
         }
 
